@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    app:layoutDescription="@xml/activity_onboarding_scene"
+    tools:context=".OnboardingActivity">
+
+    <ImageView
+        android:id="@+id/iv_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:src="@drawable/onboarding_one"
+        tools:layout_editor_absoluteY="205dp" />
+
+    <ImageView
+        android:id="@+id/iv_two"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:src="@drawable/onboarding_two"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/iv_three"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:src="@drawable/onboarding_three"
+        tools:layout_editor_absoluteX="600dp"
+        tools:layout_editor_absoluteY="800dp" />
+
+    <View
+        android:id="@+id/bg_onboarding"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/rectangle_top_rounded"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/v_indicator_one"
+        android:layout_width="80dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg_onboarding"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/v_indicator_two"
+        android:layout_width="40dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toEndOf="@id/v_indicator_one"
+        app:layout_constraintTop_toTopOf="@id/bg_onboarding"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/v_indicator_three"
+        android:layout_width="40dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toEndOf="@id/v_indicator_two"
+        app:layout_constraintTop_toTopOf="@id/bg_onboarding"
+        app:strokeWidth="0dp" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

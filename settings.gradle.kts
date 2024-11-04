@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Gombal"
 include(":app")
- 
+include(":app:dynamicfeature")
