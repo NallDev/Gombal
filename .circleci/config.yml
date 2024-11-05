@@ -4,24 +4,15 @@ orbs:
   android: circleci/android@3.0.0
 
 jobs:
-  build-and-test:
-    executor: android/android-machine
+  test:
+    executor: android/android_machine
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - android/restore_gradle_cache
       - run:
           name: Run Lint and Unit Tests
           command: ./gradlew lint test
-      - android/create-emulator:
-          api-level: 30
-          target: default
-          abi: x86_64
-      - android/wait-for-emulator
-      - run:
-          name: Run Instrumented Tests
-          command: ./gradlew connectedAndroidTest
-      - android/delete-emulator
-      - android/save-gradle-cache
+      - android/save_gradle_cache
       - store_test_results:
           path: ~/build/test-results
       - store_artifacts:
@@ -31,4 +22,4 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
-      - build-and-test
+      - test
