@@ -10,7 +10,7 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - run:
-          name: Jalankan Lint dan Unit Tests
+          name: Run Lint and Unit Tests
           command: ./gradlew lint test
       - android/create-emulator:
           api-level: 30
@@ -18,14 +18,14 @@ jobs:
           abi: x86_64
       - android/wait-for-emulator
       - run:
-          name: Jalankan Instrumented Tests
+          name: Run Instrumented Tests
           command: ./gradlew connectedAndroidTest
       - android/delete-emulator
       - android/save-gradle-cache
       - store_test_results:
-          path: **/build/test-results
+          path: ~/build/test-results
       - store_artifacts:
-          path: **/build/outputs/apk/debug/
+          path: ~/build/outputs/apk/debug/
           destination: artifact-file
 
 workflows:
