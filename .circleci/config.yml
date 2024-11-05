@@ -1,28 +1,14 @@
-version: 2.1
-
+version: '2.1'
 orbs:
-  android: circleci/android@2.0.0
-
+  android: circleci/android@3.0.0
 jobs:
-  build:
-    working_directory: ~/code
+  test:
     executor:
-      name: android/android-machine
-      tag: 2021.10.1
-    environment:
-      JVM_OPTS: -Xmx3200m -Dfile.encoding=utf-8
+      name: android/android_machine
+      resource_class: large
+      tag: default
     steps:
       - checkout
-      - run:
-          name: Install OpenJDK 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
-            echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/' >> ~/.circlerc
-      - run:
-          name: Display version
-          command: ./gradlew --version
       - restore_cache:
           key: android-orb-v1-
       - run:
