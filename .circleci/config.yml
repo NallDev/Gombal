@@ -12,23 +12,11 @@ jobs:
       - checkout
       - android/restore_gradle_cache
       - android/restore_build_cache
-
-      - android/run_unit_tests:
-          gradle_task: test
-
-      - android/build_gradle:
-          gradle_task: assembleDebug
-
-      - store_test_results:
-          path: '**/build/test-results/testDebugUnitTest'
-
-      - store_artifacts:
-          path: '**/build/outputs/apk/debug/*.apk'
-
+      - android/run_tests
       - android/save_gradle_cache:
           cache_prefix: v1a
           
-      - save-build-cache
+      - save_build_cache
 
 workflows:
   build_and_test_workflow:
