@@ -10,8 +10,8 @@ jobs:
       tag: default
     steps:
       - checkout
-
-      - android/resolve_dependencies
+      - android/restore_gradle_cache
+      - android/restore_build_cache
 
       - android/run_unit_tests:
           gradle_task: test
@@ -27,6 +27,8 @@ jobs:
 
       - android/save_gradle_cache:
           cache_prefix: v1a
+          
+      - save-build-cache
 
 workflows:
   build_and_test_workflow:
