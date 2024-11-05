@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.nalldev.core"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 26
