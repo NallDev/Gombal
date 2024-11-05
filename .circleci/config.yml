@@ -15,8 +15,8 @@ jobs:
       - android/run_tests
       - android/save_gradle_cache:
           cache_prefix: v1a
-          
-      - save_build_cache
+      - save_build_cache:
+          cache_prefix: v1a
 
 workflows:
   build_and_test_workflow:
