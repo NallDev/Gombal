@@ -11,6 +11,12 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
+          name: Set Gradle Version to 8.5.0
+          command: |
+            curl -s "https://downloads.gradle-dn.com/distributions/gradle-8.5.0-bin.zip" -o gradle-8.5.0-bin.zip
+            unzip -d /opt/gradle gradle-8.5.0-bin.zip
+            export PATH="/opt/gradle/gradle-8.5.0/bin:$PATH"
+      - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
       - run:
