@@ -44,7 +44,7 @@
             android:layout_marginTop="32dp" >
             <CustomAttribute
                 motion:attributeName="cardBackgroundColor"
-                motion:customColorValue="@color/primary" />
+                motion:customColorValue="@color/colorPrimary" />
         </Constraint>
         <Constraint
             android:id="@+id/v_indicator_two"
@@ -70,6 +70,50 @@
                 motion:attributeName="cardBackgroundColor"
                 motion:customColorValue="@color/gray" />
         </Constraint>
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginTop="16dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/title_onboarding_one"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:layout_marginTop="8dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/subtitle_onboarding_one"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginStart="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next"
+            motion:layout_constraintStart_toStartOf="@id/btn_next">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/next"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/iv_next"
+            motion:layout_constraintEnd_toEndOf="@id/btn_next"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginEnd="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -123,7 +167,7 @@
 
             <CustomAttribute
                 motion:attributeName="cardBackgroundColor"
-                motion:customColorValue="@color/primary" />
+                motion:customColorValue="@color/colorPrimary" />
         </Constraint>
         <Constraint
             android:id="@+id/v_indicator_three"
@@ -138,6 +182,50 @@
                 motion:attributeName="cardBackgroundColor"
                 motion:customColorValue="@color/gray" />
         </Constraint>
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginTop="16dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/title_onboarding_two"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:layout_marginTop="8dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/subtitle_onboarding_two"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginStart="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next"
+            motion:layout_constraintStart_toStartOf="@id/btn_next">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/next"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/iv_next"
+            motion:layout_constraintEnd_toEndOf="@id/btn_next"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginEnd="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/three" >
         <Constraint
@@ -206,8 +294,52 @@
 
             <CustomAttribute
                 motion:attributeName="cardBackgroundColor"
-                motion:customColorValue="@color/primary" />
+                motion:customColorValue="@color/colorPrimary" />
         </Constraint>
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginTop="16dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/title_onboarding_three"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:layout_marginTop="8dp">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/subtitle_onboarding_three"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginStart="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next"
+            motion:layout_constraintStart_toStartOf="@id/btn_next">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="@string/next"/>
+        </Constraint>
+        <Constraint
+            android:id="@+id/iv_next"
+            motion:layout_constraintEnd_toEndOf="@id/btn_next"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            motion:layout_constraintBottom_toBottomOf="@id/btn_next"
+            android:layout_marginEnd="40dp"
+            motion:layout_constraintTop_toTopOf="@id/btn_next" />
     </ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/end"
