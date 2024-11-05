@@ -1,25 +1,34 @@
-version: 2.1
-
+version: '2.1'
 orbs:
   android: circleci/android@3.0.0
 
 jobs:
-  test:
-    executor: android/android_machine
+  build_and_test:
+    executor:
+      name: android/android_machine
+      resource_class: large
+      tag: default
     steps:
       - checkout
-      - android/restore_gradle_cache
-      - run:
-          name: Run Lint and Unit Tests
-          command: ./gradlew lint test
-      - android/save_gradle_cache
+
+      - android/resolve_dependencies
+
+      - android/run_unit_tests:
+          gradle_task: test
+
+      - android/build_gradle:
+          gradle_task: assembleDebug
+
       - store_test_results:
-          path: ~/build/test-results
+          path: '**/build/test-results/testDebugUnitTest'
+
       - store_artifacts:
-          path: ~/build/outputs/apk/debug/
-          destination: artifact-file
+          path: '**/build/outputs/apk/debug/*.apk'
+
+      - android/save_gradle_cache:
+          cache_prefix: v1a
 
 workflows:
-  build-and-test-workflow:
+  build_and_test_workflow:
     jobs:
-      - test
+      - build_and_test
