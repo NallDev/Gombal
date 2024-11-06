@@ -3,21 +3,21 @@ orbs:
   android: circleci/android@3.0.0
 jobs:
   test:
-    executor:
-      name: android/android_machine
-      resource_class: large
-      tag: default
+    executor: android_docker
     steps:
       - checkout
-      - android/create_avd:
-          avd_name: myavd
-          install: true
-          system_image: system-images;android-31;default;x86_64
-      - android/start_emulator:
-          avd_name: myavd
-          no_window: true
-          restore_gradle_cache_prefix: v1a
-      - android/run_tests
+      - accept_licenses
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - run:
+          name: Run Build
+          command: ./gradlew build
+      - android/run_tests:
+          test_command: ./gradlew lint test
       - android/save_gradle_cache:
           cache_prefix: v1a
 workflows:
