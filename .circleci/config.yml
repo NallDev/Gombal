@@ -6,7 +6,6 @@ jobs:
     executor: android_docker
     steps:
       - checkout
-      - accept_licenses
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
