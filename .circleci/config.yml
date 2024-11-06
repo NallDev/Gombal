@@ -3,7 +3,10 @@ orbs:
   android: circleci/android@3.0.0
 jobs:
   test:
-    executor: android_docker
+    executor:
+      name: android/android_machine
+      resource_class: large
+      tag: default
     steps:
       - checkout
       - run:
