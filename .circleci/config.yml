@@ -9,6 +9,8 @@ jobs:
       tag: default
     steps:
       - checkout
+      - restore_cache:
+          key: android-orb-v1-
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
