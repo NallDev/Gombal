@@ -23,3 +23,6 @@ rootProject.name = "Gombal"
 include(":app")
 include(":app:dynamicfeature")
 include(":core")
+include(":home")
+include(":home:data")
+include(":home:domain")

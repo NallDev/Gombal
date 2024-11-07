@@ -4,4 +4,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.android.dynamic.feature) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlinSymbolProcessing) apply false
+    alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 }

@@ -6,9 +6,7 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="1000">
-       <KeyFrameSet>
-       </KeyFrameSet>
+        motion:duration="1300">
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -71,29 +69,21 @@
                 motion:customColorValue="@color/gray" />
         </Constraint>
         <Constraint
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
-            android:layout_marginTop="16dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/title_onboarding_one"/>
-        </Constraint>
+            android:layout_marginTop="16dp"/>
         <Constraint
-            android:id="@+id/tv_subtitle"
+            android:id="@+id/tv_subtitle_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            motion:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:layout_marginTop="8dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/subtitle_onboarding_one"/>
-        </Constraint>
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_one"
+            android:layout_marginTop="8dp"/>
         <Constraint
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
@@ -114,6 +104,54 @@
             motion:layout_constraintBottom_toBottomOf="@id/btn_next"
             android:layout_marginEnd="40dp"
             motion:layout_constraintTop_toTopOf="@id/btn_next" />
+        <Constraint
+            android:id="@+id/tv_title_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            android:translationX="600dp" />
+        <Constraint
+            android:id="@+id/tv_subtitle_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_two"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/tv_title_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:translationX="600dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/tv_subtitle_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_three"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/btn_next"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="144dp"
+            android:layout_height="56dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -183,29 +221,25 @@
                 motion:customColorValue="@color/gray" />
         </Constraint>
         <Constraint
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
-            android:layout_marginTop="16dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/title_onboarding_two"/>
-        </Constraint>
+            android:layout_marginTop="16dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
         <Constraint
-            android:id="@+id/tv_subtitle"
+            android:id="@+id/tv_subtitle_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            motion:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:layout_marginTop="8dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/subtitle_onboarding_two"/>
-        </Constraint>
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_one"
+            android:layout_marginTop="8dp"
+            android:translationX="600dp"
+            android:visibility="invisible" />
         <Constraint
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
@@ -227,6 +261,46 @@
             android:layout_marginEnd="40dp"
             motion:layout_constraintTop_toTopOf="@id/btn_next"
             android:rotation="360" />
+        <Constraint
+            android:id="@+id/tv_title_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:translationX="0dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/tv_subtitle_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_two"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:translationX="0dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/tv_title_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:translationX="600dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/tv_subtitle_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_three"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/three" >
         <Constraint
@@ -298,29 +372,25 @@
                 motion:customColorValue="@color/colorPrimary" />
         </Constraint>
         <Constraint
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
-            android:layout_marginTop="16dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/title_onboarding_three"/>
-        </Constraint>
+            android:layout_marginTop="16dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
         <Constraint
-            android:id="@+id/tv_subtitle"
+            android:id="@+id/tv_subtitle_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            motion:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:layout_marginTop="8dp">
-            <CustomAttribute
-                motion:attributeName="text"
-                motion:customStringValue="@string/subtitle_onboarding_three"/>
-        </Constraint>
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_one"
+            android:layout_marginTop="8dp"
+            android:translationX="600dp"
+            android:visibility="invisible" />
         <Constraint
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
@@ -341,10 +411,45 @@
             motion:layout_constraintBottom_toBottomOf="@id/btn_next"
             android:layout_marginEnd="40dp"
             motion:layout_constraintTop_toTopOf="@id/btn_next"
-            android:rotation="360" />
+            android:rotation="720" />
+        <Constraint
+            android:id="@+id/tv_title_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:translationX="-600dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/tv_subtitle_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_two"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:translationX="600dp" />
+        <Constraint
+            android:id="@+id/tv_title_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/v_indicator_one"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp" />
+        <Constraint
+            android:id="@+id/tv_subtitle_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title_three"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp" />
     </ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/end"
         motion:constraintSetEnd="@+id/three"
-        motion:duration="1000" />
+        motion:duration="1300" />
 </MotionScene>
