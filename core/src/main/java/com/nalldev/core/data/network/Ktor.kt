@@ -20,6 +20,8 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.minutes
 
+const val END_POINT = "https://www.arbeitnow.com/api/job-board-api"
+
 val httpClientAndroid = HttpClient(Android) {
     install(ContentNegotiation) {
         json(

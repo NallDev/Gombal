@@ -41,20 +41,20 @@ dependencies {
     api(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.coil)
 
+    api(platform(libs.koin.bom))
+    api(libs.koin.android)
+
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
 
-    implementation(platform(libs.ktor.bom))
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.serialization)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
+    api(platform(libs.ktor.bom))
+    api(libs.ktor.client.android)
+    api(libs.ktor.client.serialization)
+    api(libs.ktor.client.logging)
+    api(libs.ktor.client.content.negotiation)
+    api(libs.ktor.serialization.kotlinx.json)
 
-    implementation(libs.androidx.datastore.preferences)
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.android)
+    api(libs.androidx.datastore.preferences)
 }
