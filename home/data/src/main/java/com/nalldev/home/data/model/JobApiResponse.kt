@@ -1,5 +1,6 @@
 package com.nalldev.home.data.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -17,9 +18,12 @@ data class Links(
 
 @Serializable
 data class DataItem(
+	@SerialName("job_types")
 	val jobTypes: List<String> = mutableListOf(),
+	@SerialName("company_name")
 	val companyName: String? = null,
 	val description: String? = null,
+	@SerialName("created_at")
 	val createdAt: Int? = null,
 	val location: String? = null,
 	val title: String,

@@ -8,5 +8,6 @@ data class JobModel(
     val remote : Boolean,
     val tags : List<String>,
     val location : String,
-    val date : String
+    val date : String,
+    var isFavorite : Boolean = false
 )

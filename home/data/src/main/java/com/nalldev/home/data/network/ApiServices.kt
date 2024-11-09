@@ -1,9 +1,9 @@
 package com.nalldev.home.data.network
 
-import com.nalldev.core.data.network.END_POINT
+import com.nalldev.core.data.network.BASE_URL
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
 class ApiServices(private val client : HttpClient) {
-    suspend fun getJobs() = client.get(END_POINT)
+    suspend fun fetchJobs(page : Int) = client.get(String.format("${BASE_URL}/job-board-api?page=$page"))
 }

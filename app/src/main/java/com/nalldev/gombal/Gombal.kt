@@ -1,7 +1,8 @@
 package com.nalldev.gombal
 
 import android.app.Application
-import com.nalldev.core.di.databaseModule
+import com.nalldev.core.di.commonModule
+import com.nalldev.core.di.localModule
 import com.nalldev.core.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +16,7 @@ class Gombal : Application() {
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@Gombal)
-            modules(listOf(networkModule, databaseModule))
+            modules(listOf(networkModule, localModule, commonModule))
         }
     }
 }

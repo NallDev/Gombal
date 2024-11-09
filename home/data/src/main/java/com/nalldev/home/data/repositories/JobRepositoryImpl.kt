@@ -1,30 +1,44 @@
 package com.nalldev.home.data.repositories
 
-import com.nalldev.core.utils.UIState
-import com.nalldev.home.data.model.JobApiResponse
-import com.nalldev.home.data.network.ApiServices
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
+import com.nalldev.home.data.datasource.JobRemoteMediator
+import com.nalldev.home.data.datasource.LocalDataSource
 import com.nalldev.home.data.util.JobMapper
 import com.nalldev.home.domain.model.JobModel
 import com.nalldev.home.domain.repositories.JobRepository
-import io.ktor.client.call.body
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.combine
 
 class JobRepositoryImpl(
-    private val apiServices: ApiServices
+    private val localDataSource: LocalDataSource,
+    private val jobRemoteMediator: JobRemoteMediator
 ) : JobRepository {
-    override fun getJobs(): Flow<UIState<List<JobModel>>>  = flow {
-        emit(UIState.Loading)
-        try {
-            val response = apiServices.getJobs().body<JobApiResponse>()
-            val data = response.data.map {
-                JobMapper.toDomain(it)
+
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getJobs(): Flow<PagingData<JobModel>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = 100,
+                initialLoadSize = 100,
+            ),
+            remoteMediator = jobRemoteMediator,
+            pagingSourceFactory = { localDataSource.getJobs() }
+        ).flow.combine(localDataSource.getFavoriteJobs()) { pagingData, favoriteJobs ->
+            pagingData.map { jobEntity ->
+                val isFavorite = favoriteJobs.any { it.id == jobEntity.id }
+                JobMapper.toDomain(jobEntity).copy(isFavorite = isFavorite)
             }
-            emit(UIState.Success(data))
-        } catch (e: Exception) {
-            emit(UIState.Error)
         }
-    }.flowOn(Dispatchers.IO)
+
+    override suspend fun insertToFavorite(job: JobModel) {
+        localDataSource.insertToFavorite(JobMapper.toJobFavoritesData(job))
+    }
+
+    override suspend fun deleteFromFavorite(job: JobModel) {
+        localDataSource.deleteFromFavorite(JobMapper.toJobFavoritesData(job).id)
+    }
 }

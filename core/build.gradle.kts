@@ -44,12 +44,12 @@ dependencies {
     api(platform(libs.koin.bom))
     api(libs.koin.android)
 
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.paging)
+    api(libs.androidx.room.runtime)
+    api(libs.androidx.room.ktx)
+    api(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.android.database.sqlcipher)
-    implementation(libs.androidx.sqlite.ktx)
+    api(libs.android.database.sqlcipher)
+    api(libs.androidx.sqlite.ktx)
 
     api(platform(libs.ktor.bom))
     api(libs.ktor.client.okhttp)
@@ -57,6 +57,7 @@ dependencies {
     api(libs.ktor.client.logging)
     api(libs.ktor.client.content.negotiation)
     api(libs.ktor.serialization.kotlinx.json)
+    api(libs.logging.interceptor)
 
     api(libs.androidx.datastore.preferences)
 }
