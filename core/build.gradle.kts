@@ -48,9 +48,11 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 
     api(platform(libs.ktor.bom))
-    api(libs.ktor.client.android)
+    api(libs.ktor.client.okhttp)
     api(libs.ktor.client.serialization)
     api(libs.ktor.client.logging)
     api(libs.ktor.client.content.negotiation)

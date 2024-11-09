@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":home"))
 
+    debugImplementation(libs.leakcanary.android)
     testImplementation(project(":core"))
     androidTestImplementation(project(":core"))
 }

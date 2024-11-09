@@ -1,19 +1,11 @@
 package com.nalldev.core.di
 
-import android.app.Application
-import androidx.room.Room
-import com.nalldev.core.data.local.room.JobDb
+import com.nalldev.core.data.local.room.provideDatabase
+import com.nalldev.core.data.local.room.provideSupportFactory
 import org.koin.dsl.module
 
 val databaseModule = module {
-    single { provideDatabase(get()) }
+    single { provideSupportFactory() }
+    single { provideDatabase(get(), get()) }
 }
 
-fun provideDatabase(application: Application): JobDb =
-    Room.databaseBuilder(
-        application,
-        JobDb::class.java,
-        "job_db"
-    )
-        .fallbackToDestructiveMigration()
-        .build()
