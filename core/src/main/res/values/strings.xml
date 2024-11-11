@@ -8,4 +8,5 @@
     <string name="error_code_429">You\'re making requests too quickly. Please slow down.</string>
     <string name="error_code_500">We\'re experiencing some issues. Please try again later.</string>
     <string name="error_code_default">An unexpected error occurred. Please try again.</string>
+    <string name="check_internet_connection">Please check your internet connection and try again.</string>
 </resources>

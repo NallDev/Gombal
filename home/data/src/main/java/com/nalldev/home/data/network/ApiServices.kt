@@ -5,5 +5,5 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
 class ApiServices(private val client : HttpClient) {
-    suspend fun fetchJobs(page : Int) = client.get(String.format("${BASE_URL}/job-board-api?page=$page"))
+    suspend fun fetchJobs() = client.get(String.format("${BASE_URL}/job-board-api"))
 }

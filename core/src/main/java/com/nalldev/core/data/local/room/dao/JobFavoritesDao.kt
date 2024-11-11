@@ -15,7 +15,7 @@ interface JobFavoritesDao {
     @Query("SELECT * FROM job_favorites")
     fun getJobs() : Flow<List<JobFavoritesEntity>>
 
-    @Query("DELETE FROM jobs WHERE id = :id")
+    @Query("DELETE FROM job_favorites WHERE id = :id")
     suspend fun deleteJob(id: String)
 
 }

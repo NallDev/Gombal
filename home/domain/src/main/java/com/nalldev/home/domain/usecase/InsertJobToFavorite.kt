@@ -1,6 +1,6 @@
 package com.nalldev.home.domain.usecase
 
-import com.nalldev.home.domain.model.JobModel
+import com.nalldev.core.domain.model.JobModel
 import com.nalldev.home.domain.repositories.JobRepository
 
 class InsertJobToFavorite(

@@ -16,4 +16,12 @@ object RemoteHelper {
             else -> context.getString(R.string.error_code_default)
         }
     }
+
+    fun errorDefaultMessage(context: Context) : String {
+        return context.getString(R.string.error_code_default)
+    }
+
+    fun noInternetMessage(context: Context) : String {
+        return context.getString(R.string.check_internet_connection)
+    }
 }

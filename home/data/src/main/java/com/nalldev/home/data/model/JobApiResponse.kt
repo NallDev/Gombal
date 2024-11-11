@@ -29,7 +29,7 @@ data class DataItem(
 	val title: String,
 	val remote: Boolean,
 	val slug: String,
-	val url: String? = null,
+	val url: String,
 	val tags: List<String> = mutableListOf()
 )
 

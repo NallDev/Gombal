@@ -8,6 +8,11 @@
     <color name="gray">#3E3933</color>
     <color name="subtitle">#97948F</color>
 
+    <color name="colorSecondary">#FF3F3F</color>
+
     <color name="stroke">#3C3831</color>
     <color name="card">#2A261F</color>
+
+    <color name="colorBackground80">#CC241F18</color>
+    <color name="colorBackground20">#33241F18</color>
 </resources>

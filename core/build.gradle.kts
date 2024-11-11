@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinSymbolProcessing)
     alias(libs.plugins.jetbrains.kotlin.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -46,7 +47,6 @@ dependencies {
 
     api(libs.androidx.room.runtime)
     api(libs.androidx.room.ktx)
-    api(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
     api(libs.android.database.sqlcipher)
     api(libs.androidx.sqlite.ktx)

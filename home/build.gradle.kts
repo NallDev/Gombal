@@ -31,10 +31,10 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":home:domain"))
     implementation(project(":home:data"))
+    implementation(project(":detail"))
 
     testImplementation(project(":core"))
     androidTestImplementation(project(":core"))
 
-    implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.swiperefreshlayout)
 }

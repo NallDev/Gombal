@@ -26,16 +26,35 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:checkable="true"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/favorites_toggle"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/colorSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/colorOnBackground"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_favorite"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/iv_job"
             app:layout_constraintTop_toTopOf="@id/iv_job"
@@ -76,10 +95,11 @@
             app:layout_constraintTop_toBottomOf="@id/cg_tags"
             android:layout_marginVertical="16dp"
             android:drawableStart="@drawable/ic_location"
-            android:gravity="start|center_vertical"
+            android:includeFontPadding="false"
             android:drawablePadding="4dp"
             tools:text="Berlin"
-            android:textSize="16sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="14sp"
             android:textColor="@color/colorOnBackground"
             tools:ignore="UseCompatTextViewDrawableXml" />
 

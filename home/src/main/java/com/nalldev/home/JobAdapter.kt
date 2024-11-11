@@ -2,14 +2,14 @@ package com.nalldev.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.nalldev.home.databinding.ItemJobBinding
-import com.nalldev.home.domain.model.JobModel
+import com.nalldev.core.domain.model.JobModel
 
-class JobAdapter : PagingDataAdapter<JobModel, JobAdapter.ViewHolder>(this) {
+class JobAdapter(val listener : Listener? = null) : ListAdapter<JobModel, JobAdapter.ViewHolder>(this) {
 
     inner class ViewHolder(private val binding : ItemJobBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(job : JobModel) = with(binding) {
@@ -32,13 +32,19 @@ class JobAdapter : PagingDataAdapter<JobModel, JobAdapter.ViewHolder>(this) {
 
                 cgTags.addView(chip)
             }
+
+            binding.btnFavorite.setOnClickListener {
+                listener?.onFavoriteClicked(job, binding.btnFavorite.isChecked)
+            }
+
+            binding.root.setOnClickListener {
+                listener?.onItemClicked(job, binding)
+            }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(holder.bindingAdapterPosition)?.let { job ->
-            holder.bind(job)
-        }
+        holder.bind(getItem(holder.adapterPosition))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,9 +52,31 @@ class JobAdapter : PagingDataAdapter<JobModel, JobAdapter.ViewHolder>(this) {
         return ViewHolder(binding)
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        when(val latestPayload = payloads.lastOrNull()) {
+            is JobAdapterChangePayload.DataChanged -> holder.bind(latestPayload.job)
+            else -> holder.bind(getItem(holder.adapterPosition))
+        }
+    }
+
+    interface Listener {
+        fun onItemClicked(job : JobModel, view: ItemJobBinding)
+        fun onFavoriteClicked(job : JobModel, isFavorite : Boolean)
+    }
+
     companion object : DiffUtil.ItemCallback<JobModel>() {
         override fun areItemsTheSame(oldItem: JobModel, newItem: JobModel): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: JobModel, newItem: JobModel): Boolean = oldItem == newItem
+
+        override fun getChangePayload(oldItem: JobModel, newItem: JobModel): Any? {
+            return if (oldItem != newItem) {
+                JobAdapterChangePayload.DataChanged(newItem)
+            } else {null}
+        }
+    }
+
+    private sealed interface JobAdapterChangePayload {
+        data class DataChanged(val job : JobModel) : JobAdapterChangePayload
     }
 }
