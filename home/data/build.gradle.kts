@@ -27,4 +27,6 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":home:domain"))
+
+    debugImplementation(project(":core"))
 }

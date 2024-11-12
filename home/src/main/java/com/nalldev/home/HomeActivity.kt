@@ -19,9 +19,11 @@ import com.nalldev.home.databinding.ActivityHomeBinding
 import com.nalldev.home.databinding.ItemJobBinding
 import com.nalldev.home.domain.di.domainModule
 import com.nalldev.core.domain.model.JobModel
+import com.nalldev.core.utils.CommonHelper
 import com.nalldev.core.utils.Constant
 import com.nalldev.core.utils.UIState
 import com.nalldev.core.utils.hideKeyboard
+import com.nalldev.home.di.homeModule
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
@@ -90,15 +92,32 @@ class HomeActivity : AppCompatActivity() {
     private fun initObserver() = with(viewModel) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                uiState.collect { uiState ->
-                    when (uiState) {
-                        is UIState.Loading -> binding.swipeRefresh.isRefreshing = true
-                        is UIState.Success -> {
-                            binding.swipeRefresh.isRefreshing = false
-                            jobAdapter.submitList(uiState.data)
+                launch {
+                    isDarkMode.collect { isDarkMode ->
+                        if (viewModel.isDarkMode.value) {
+                            binding.themeLayout.post {
+                                binding.themeLayout.transitionToEnd()
+                            }
+                        } else {
+                            binding.themeLayout.post {
+                                binding.themeLayout.transitionToStart()
+                            }
                         }
-                        is UIState.Error -> {
-                            binding.swipeRefresh.isRefreshing = false
+                        CommonHelper.setDarkMode(this@HomeActivity, isDarkMode)
+                    }
+                }
+
+                launch {
+                    uiState.collect { uiState ->
+                        when (uiState) {
+                            is UIState.Loading -> binding.swipeRefresh.isRefreshing = true
+                            is UIState.Success -> {
+                                binding.swipeRefresh.isRefreshing = false
+                                jobAdapter.submitList(uiState.data)
+                            }
+                            is UIState.Error -> {
+                                binding.swipeRefresh.isRefreshing = false
+                            }
                         }
                     }
                 }
@@ -112,6 +131,25 @@ class HomeActivity : AppCompatActivity() {
         }
         etSearchJobs.doOnTextChanged { text, _, _, _ ->
             viewModel.updateSearchQuery(text.toString())
+        }
+        btnFavorite.setOnClickListener {
+            val intent = Intent(this@HomeActivity, Class.forName("com.nalldev.favorites.FavoritesActivity"))
+            startActivity(intent)
+        }
+        binding.toggleTheme.setOnClickListener {
+            if (viewModel.isDarkMode.value) {
+                binding.themeLayout.post {
+                    binding.themeLayout.transitionToStart {
+                        viewModel.setDarkMode(false)
+                    }
+                }
+            } else {
+                binding.themeLayout.post {
+                    binding.themeLayout.transitionToEnd {
+                        viewModel.setDarkMode(true)
+                    }
+                }
+            }
         }
     }
 

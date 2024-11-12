@@ -47,22 +47,71 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:cardCornerRadius="24dp"
+                app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeWidth="0dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.constraintlayout.motion.widget.MotionLayout
+                    android:id="@+id/theme_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layoutDescription="@xml/activity_home_xml_constraintlayout_scene">
 
                     <View
+                        android:id="@+id/bg_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_light" />
+
+                    <View
+                        android:id="@+id/bg_dark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_dark" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:id="@+id/ic_sun"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/ic_sun"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="2dp" />
+
+                    <View
+                        android:id="@+id/ic_moon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/ic_moon"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/cloud_one"
+                        android:layout_width="16dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/ic_cloud_one"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <View
+                        android:id="@+id/cloud_two"
+                        android:layout_width="16dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/ic_cloud_two"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.motion.widget.MotionLayout>
 
             </com.google.android.material.card.MaterialCardView>
 

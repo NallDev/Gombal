@@ -60,4 +60,6 @@ dependencies {
     api(libs.logging.interceptor)
 
     api(libs.androidx.datastore.preferences)
+
+    api(libs.leakcanary.android)
 }

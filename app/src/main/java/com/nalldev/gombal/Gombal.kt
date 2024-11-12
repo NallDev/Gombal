@@ -4,6 +4,8 @@ import android.app.Application
 import com.nalldev.core.di.commonModule
 import com.nalldev.core.di.localModule
 import com.nalldev.core.di.networkModule
+import com.nalldev.core.di.repositoryModule
+import com.nalldev.core.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +18,7 @@ class Gombal : Application() {
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@Gombal)
-            modules(listOf(networkModule, localModule, commonModule))
+            modules(listOf(networkModule, localModule, repositoryModule, useCaseModule, commonModule))
         }
     }
 }

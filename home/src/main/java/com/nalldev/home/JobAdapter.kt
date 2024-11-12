@@ -16,11 +16,21 @@ class JobAdapter(val listener : Listener? = null) : ListAdapter<JobModel, JobAda
             tvTitle.text = job.title
             tvCompanyName.text = job.companyName
             tvLocation.text = job.location
+            btnFavorite.isChecked = job.isFavorite
 
+            binding.btnFavorite.setOnClickListener {
+                listener?.onFavoriteClicked(job, binding.btnFavorite.isChecked)
+            }
+
+            binding.root.setOnClickListener {
+                listener?.onItemClicked(job, binding)
+            }
+        }
+
+        fun createChip(job : JobModel) = with(binding) {
             if (job.remote) {
                 job.tags.toMutableList().add(0,"Remote")
             }
-
             job.tags.forEach { tag ->
                 val chip = Chip(binding.root.context)
 
@@ -32,19 +42,12 @@ class JobAdapter(val listener : Listener? = null) : ListAdapter<JobModel, JobAda
 
                 cgTags.addView(chip)
             }
-
-            binding.btnFavorite.setOnClickListener {
-                listener?.onFavoriteClicked(job, binding.btnFavorite.isChecked)
-            }
-
-            binding.root.setOnClickListener {
-                listener?.onItemClicked(job, binding)
-            }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(holder.adapterPosition))
+        holder.createChip(getItem(holder.adapterPosition))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -55,7 +58,7 @@ class JobAdapter(val listener : Listener? = null) : ListAdapter<JobModel, JobAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
         when(val latestPayload = payloads.lastOrNull()) {
             is JobAdapterChangePayload.DataChanged -> holder.bind(latestPayload.job)
-            else -> holder.bind(getItem(holder.adapterPosition))
+            else -> onBindViewHolder(holder, holder.adapterPosition)
         }
     }
 

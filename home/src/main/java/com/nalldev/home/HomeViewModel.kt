@@ -4,29 +4,40 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nalldev.core.domain.model.JobModel
+import com.nalldev.core.domain.usecases.DarkModeUseCases
 import com.nalldev.core.utils.RemoteHelper
 import com.nalldev.core.utils.UIState
 import com.nalldev.home.domain.usecase.JobUseCases
 import io.ktor.client.plugins.ClientRequestException
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class HomeViewModel(
     private val application: Application,
-    private val jobUseCases: JobUseCases
+    private val jobUseCases: JobUseCases,
+    private val darkModeUseCases: DarkModeUseCases
 ) : ViewModel() {
+    val isDarkMode = darkModeUseCases.isDarkMode().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = false
+    )
+
     private val _uiState = MutableStateFlow<UIState<List<JobModel>>>(UIState.Loading)
-    val uiState: StateFlow<UIState<List<JobModel>>> = _uiState
+    val uiState: StateFlow<UIState<List<JobModel>>> = _uiState.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
 
@@ -54,13 +65,16 @@ class HomeViewModel(
                 _uiState.update { UIState.Loading }
             }
             .onEach { filteredJobs ->
-                println("FAVORITE CUY : ${filteredJobs.map { it.isFavorite }.count()}")
                 _uiState.update { UIState.Success(filteredJobs) }
             }
             .catch { throwable ->
-                val message = when(throwable) {
+                val message = when (throwable) {
                     is IOException -> RemoteHelper.noInternetMessage(application)
-                    is ClientRequestException -> RemoteHelper.remoteErrorMessage(application, throwable.response.status.value)
+                    is ClientRequestException -> RemoteHelper.remoteErrorMessage(
+                        application,
+                        throwable.response.status.value
+                    )
+
                     else -> RemoteHelper.errorDefaultMessage(application)
                 }
                 _uiState.update { UIState.Error(message) }
@@ -72,13 +86,15 @@ class HomeViewModel(
         _searchQuery.update { query }
     }
 
-    fun updateFavoriteStatus(job: JobModel, isFavorite: Boolean) {
-        viewModelScope.launch {
-            if (isFavorite) {
-                jobUseCases.insertJobToFavorite(job)
-            } else {
-                jobUseCases.deleteJobFromFavorite(job)
-            }
+    fun updateFavoriteStatus(job: JobModel, isFavorite: Boolean) = viewModelScope.launch {
+        if (isFavorite) {
+            jobUseCases.insertJobToFavorite(job)
+        } else {
+            jobUseCases.deleteJobFromFavorite(job)
         }
+    }
+
+    fun setDarkMode(isDarkMode: Boolean) = viewModelScope.launch {
+        darkModeUseCases.setDarkMode(isDarkMode)
     }
 }

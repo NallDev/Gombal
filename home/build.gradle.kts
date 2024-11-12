@@ -33,6 +33,7 @@ dependencies {
     implementation(project(":home:data"))
     implementation(project(":detail"))
 
+    debugImplementation(project(":core"))
     testImplementation(project(":core"))
     androidTestImplementation(project(":core"))
 

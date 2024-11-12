@@ -19,7 +19,6 @@ class JobRepositoryImpl(
             localDataSource.getFavoriteJobs()
         ) { networkJobs, favoriteJobs ->
             networkJobs.map { jobEntity ->
-                println("FAVORITE JOB : $favoriteJobs")
                 val isFavorite = favoriteJobs.any { it.id == jobEntity.slug }
                 JobMapper.toDomain(jobEntity).copy(isFavorite = isFavorite)
             }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Gombal</string>
     <string name="title_dynamicfeature">Onboarding</string>
+    <string name="title_favorites">Favorites</string>
 </resources>

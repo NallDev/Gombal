@@ -24,7 +24,19 @@ class PreferenceDataSource (
         }
     }
 
+    val isOnBoardingFinished: Flow<Boolean> = dataStore.data
+        .map { preferences ->
+            preferences[IS_ON_BOARDING_FINISHED_KEY] ?: false
+        }
+
+    suspend fun setIsOnBoardingFinished(isOnBoardingFinished: Boolean) = withContext(ioDispatcher) {
+        dataStore.edit { preferences ->
+            preferences[IS_ON_BOARDING_FINISHED_KEY] = isOnBoardingFinished
+        }
+    }
+
     companion object {
         private val IS_DARK_MODE_KEY = booleanPreferencesKey("isDarkMode")
+        private val IS_ON_BOARDING_FINISHED_KEY = booleanPreferencesKey("isOnBoardingFinished")
     }
 }

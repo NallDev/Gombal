@@ -14,12 +14,17 @@ import androidx.core.view.WindowInsetsCompat
 import com.nalldev.core.domain.model.JobModel
 import com.nalldev.core.utils.Constant
 import com.nalldev.detail.databinding.ActivityDetailBinding
+import com.nalldev.detail.di.detailModule
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class DetailActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityDetailBinding.inflate(layoutInflater)
     }
+
+    private val viewModel by viewModel<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,8 @@ class DetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        loadKoinModules(detailModule)
 
         getDetailExtras()?.let {
             initView(it)
@@ -68,9 +75,9 @@ class DetailActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        job?.let {
+        job?.let { job ->
             btnFavorite.setOnClickListener {
-
+                viewModel.updateFavoriteStatus(job, binding.btnFavorite.isChecked)
             }
 
             btnApply.setOnClickListener {

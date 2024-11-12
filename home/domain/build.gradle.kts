@@ -25,4 +25,5 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    debugImplementation(project(":core"))
 }

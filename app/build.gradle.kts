@@ -46,15 +46,14 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-    dynamicFeatures += setOf(":app:dynamicfeature")
+    dynamicFeatures += setOf(":app:onboarding", ":favorites")
 }
 
 dependencies {
     implementation(project(":core"))
     implementation(project(":home"))
 
-    debugImplementation(libs.leakcanary.android)
+    debugImplementation(project(":core"))
     testImplementation(project(":core"))
     androidTestImplementation(project(":core"))
 }

@@ -21,9 +21,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "Gombal"
 include(":app")
-include(":app:dynamicfeature")
+include(":app:onboarding")
 include(":core")
 include(":home")
 include(":home:data")
 include(":home:domain")
 include(":detail")
+include(":favorites")
+include(":favorites:data")
+include(":favorites:domain")
