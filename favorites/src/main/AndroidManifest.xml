@@ -16,6 +16,8 @@
     <application tools:ignore="MissingApplicationIcon">
         <activity
             android:name=".FavoritesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"
             android:exported="false"/>
     </application>
 

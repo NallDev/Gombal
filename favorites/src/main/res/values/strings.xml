@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="favorites">Favorites</string>
+    <string name="you_haven_t_added_a_favorites_list_yet">You haven\'t added a favorites list yet</string>
 </resources>

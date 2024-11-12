@@ -1,6 +1,5 @@
 package com.nalldev.core.utils
 
-import android.app.Activity
 import android.app.UiModeManager
 import android.content.Context
 import android.os.Build

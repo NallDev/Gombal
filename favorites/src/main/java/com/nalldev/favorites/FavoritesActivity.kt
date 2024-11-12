@@ -9,11 +9,13 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nalldev.core.domain.model.JobModel
 import com.nalldev.core.utils.Constant
+import com.nalldev.core.utils.showShortToast
 import com.nalldev.data.di.favoritesDataModule
 import com.nalldev.domain.di.favoritesDomainModule
 import com.nalldev.favorites.databinding.ActivityFavoritesBinding
@@ -86,9 +88,14 @@ class FavoritesActivity : AppCompatActivity() {
     private fun initObserver() = with(viewModel) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-               favoriteJobs.collect { jobs ->
+                favoriteJobs.collect { jobs ->
                     favoritesAdapter.submitList(jobs)
+                    binding.tvEmpty.isVisible = jobs.isEmpty()
                 }
+            }
+
+            toastEvent.observe(this@FavoritesActivity) { message ->
+                showShortToast(message)
             }
         }
     }
@@ -98,4 +105,5 @@ class FavoritesActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
     }
+
 }

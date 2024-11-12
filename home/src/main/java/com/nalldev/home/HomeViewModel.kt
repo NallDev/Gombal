@@ -1,11 +1,13 @@
 package com.nalldev.home
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nalldev.core.domain.model.JobModel
 import com.nalldev.core.domain.usecases.DarkModeUseCases
 import com.nalldev.core.utils.RemoteHelper
+import com.nalldev.core.utils.SingleLiveEvent
 import com.nalldev.core.utils.UIState
 import com.nalldev.home.domain.usecase.JobUseCases
 import io.ktor.client.plugins.ClientRequestException
@@ -40,6 +42,9 @@ class HomeViewModel(
     val uiState: StateFlow<UIState<List<JobModel>>> = _uiState.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
+
+    private val _toastEvent = SingleLiveEvent<String>()
+    val toastEvent: LiveData<String> = _toastEvent
 
     init {
         fetchJobs()
@@ -77,7 +82,8 @@ class HomeViewModel(
 
                     else -> RemoteHelper.errorDefaultMessage(application)
                 }
-                _uiState.update { UIState.Error(message) }
+                _uiState.update { UIState.Error }
+                _toastEvent.postValue(message)
             }
             .launchIn(viewModelScope)
     }

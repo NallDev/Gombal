@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.nalldev.home.data.di.dataModule
 import com.nalldev.home.databinding.ActivityHomeBinding
@@ -23,6 +24,7 @@ import com.nalldev.core.utils.CommonHelper
 import com.nalldev.core.utils.Constant
 import com.nalldev.core.utils.UIState
 import com.nalldev.core.utils.hideKeyboard
+import com.nalldev.core.utils.showShortToast
 import com.nalldev.home.di.homeModule
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -114,6 +116,7 @@ class HomeActivity : AppCompatActivity() {
                             is UIState.Success -> {
                                 binding.swipeRefresh.isRefreshing = false
                                 jobAdapter.submitList(uiState.data)
+                                binding.tvEmpty.isVisible = uiState.data.isEmpty()
                             }
                             is UIState.Error -> {
                                 binding.swipeRefresh.isRefreshing = false
@@ -122,6 +125,10 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        toastEvent.observe(this@HomeActivity) { message ->
+            showShortToast(message)
         }
     }
 

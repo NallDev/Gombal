@@ -2,4 +2,5 @@
     <string name="hello">Hello</string>
     <string name="find_jobs">Find Jobs</string>
     <string name="search_jobs">Search Jobs</string>
+    <string name="no_data_available">No data available</string>
 </resources>
