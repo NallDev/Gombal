@@ -12,6 +12,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.nalldev.core.utils.CommonHelper
+import com.nalldev.core.utils.RootCheckerHelper
+import com.nalldev.core.utils.showShortToast
 import com.nalldev.gombal.R
 import com.nalldev.gombal.databinding.ActivitySplashBinding
 import com.nalldev.gombal.splash.di.splashModule
@@ -25,6 +27,10 @@ class SplashActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
 
     private val viewModel by viewModel<SplashViewModel>()
+
+    private val isDeviceRooted by lazy {
+        (RootCheckerHelper.checkRootedFiles() || RootCheckerHelper.checkRootedProcesses() || RootCheckerHelper.checkTagsAndKeys())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +60,14 @@ class SplashActivity : AppCompatActivity() {
                     isOnBoardingFinished.collect { isOnBoardingFinished ->
                         binding.main.post {
                             binding.main.transitionToEnd {
-                                if (isOnBoardingFinished) {
-                                    goToHome()
+                                if (!isDeviceRooted) {
+                                    if (isOnBoardingFinished) {
+                                        goToHome()
+                                    } else {
+                                        goToOnBoarding()
+                                    }
                                 } else {
-                                    goToOnBoarding()
+                                    showShortToast("Device rooted, you can't use this app")
                                 }
                             }
                         }

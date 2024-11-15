@@ -1,11 +1,16 @@
 package com.nalldev.home
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nalldev.core.domain.callbacks.BiometricCallback
+import com.nalldev.core.domain.model.BiometricConfig
 import com.nalldev.core.domain.model.JobModel
-import com.nalldev.core.domain.usecases.DarkModeUseCases
+import com.nalldev.core.domain.usecases.biometric.BiometricUseCases
+import com.nalldev.core.domain.usecases.dark_mode.DarkModeUseCases
+import com.nalldev.core.utils.BiometricStatus
 import com.nalldev.core.utils.RemoteHelper
 import com.nalldev.core.utils.SingleLiveEvent
 import com.nalldev.core.utils.UIState
@@ -26,11 +31,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.concurrent.Executor
 
 class HomeViewModel(
     private val application: Application,
     private val jobUseCases: JobUseCases,
-    private val darkModeUseCases: DarkModeUseCases
+    private val darkModeUseCases: DarkModeUseCases,
+    private val biometricUseCases: BiometricUseCases
 ) : ViewModel() {
     val isDarkMode = darkModeUseCases.isDarkMode().stateIn(
         scope = viewModelScope,
@@ -45,6 +52,11 @@ class HomeViewModel(
 
     private val _toastEvent = SingleLiveEvent<String>()
     val toastEvent: LiveData<String> = _toastEvent
+
+    private val _biometricStatus = SingleLiveEvent<BiometricStatus>()
+    val biometricStatus: LiveData<BiometricStatus> = _biometricStatus
+
+    val isBiometricAvailable = biometricUseCases.checkBiometricAvailability()
 
     init {
         fetchJobs()
@@ -102,5 +114,25 @@ class HomeViewModel(
 
     fun setDarkMode(isDarkMode: Boolean) = viewModelScope.launch {
         darkModeUseCases.setDarkMode(isDarkMode)
+    }
+
+    fun authenticate(activity: AppCompatActivity, executor: Executor, config: BiometricConfig) {
+        val promptInfo = biometricUseCases.createPromptInfo(config)
+        val biometricPrompt = biometricUseCases.createBiometricPrompt(activity, executor, object :
+            BiometricCallback {
+            override fun onAuthenticationError(errMsg: CharSequence) {
+                _biometricStatus.postValue(BiometricStatus.Error(errMsg.toString()))
+            }
+
+            override fun onAuthenticationFailed() {
+                _biometricStatus.postValue(BiometricStatus.Failed)
+            }
+
+            override fun onAuthenticationSucceeded() {
+                _biometricStatus.postValue(BiometricStatus.Success)
+            }
+        })
+
+        biometricPrompt.authenticate(promptInfo)
     }
 }

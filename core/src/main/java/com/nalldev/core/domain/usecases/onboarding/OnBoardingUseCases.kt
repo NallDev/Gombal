@@ -1,4 +1,4 @@
-package com.nalldev.core.domain.usecases
+package com.nalldev.core.domain.usecases.onboarding
 
 data class OnBoardingUseCases(
     val isOnBoardingFinished: IsOnBoardingFinished,

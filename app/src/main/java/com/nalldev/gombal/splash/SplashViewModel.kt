@@ -2,8 +2,8 @@ package com.nalldev.gombal.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nalldev.core.domain.usecases.DarkModeUseCases
-import com.nalldev.core.domain.usecases.OnBoardingUseCases
+import com.nalldev.core.domain.usecases.dark_mode.DarkModeUseCases
+import com.nalldev.core.domain.usecases.onboarding.OnBoardingUseCases
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 

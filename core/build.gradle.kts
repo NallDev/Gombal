@@ -62,4 +62,5 @@ dependencies {
     api(libs.androidx.datastore.preferences)
 
     api(libs.leakcanary.android)
+    api(libs.androidx.biometric)
 }

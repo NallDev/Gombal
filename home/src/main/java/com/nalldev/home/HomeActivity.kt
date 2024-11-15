@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
@@ -15,11 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.core.util.Pair
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.nalldev.core.domain.model.BiometricConfig
 import com.nalldev.home.data.di.dataModule
 import com.nalldev.home.databinding.ActivityHomeBinding
 import com.nalldev.home.databinding.ItemJobBinding
 import com.nalldev.home.domain.di.domainModule
 import com.nalldev.core.domain.model.JobModel
+import com.nalldev.core.utils.BiometricStatus
 import com.nalldev.core.utils.CommonHelper
 import com.nalldev.core.utils.Constant
 import com.nalldev.core.utils.UIState
@@ -69,6 +72,8 @@ class HomeActivity : AppCompatActivity() {
         JobAdapter(jobAdapterListener)
     }
 
+    private lateinit var biometricConfig: BiometricConfig
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -89,6 +94,13 @@ class HomeActivity : AppCompatActivity() {
     private fun initView() = with(binding) {
         rvJobs.layoutManager = LinearLayoutManager(this@HomeActivity)
         rvJobs.adapter = jobAdapter
+
+        biometricConfig = BiometricConfig.Builder()
+            .setTitle("Gombal")
+            .setSubtitle("Authentication Required")
+            .setDescription("Please authenticate to continue")
+            .setNegativeButtonText("Close")
+            .build()
     }
 
     private fun initObserver() = with(viewModel) {
@@ -98,11 +110,11 @@ class HomeActivity : AppCompatActivity() {
                     isDarkMode.collect { isDarkMode ->
                         if (viewModel.isDarkMode.value) {
                             binding.themeLayout.post {
-                                binding.themeLayout.transitionToEnd()
+                                binding.themeLayout.progress = 1f
                             }
                         } else {
                             binding.themeLayout.post {
-                                binding.themeLayout.transitionToStart()
+                                binding.themeLayout.progress = 0f
                             }
                         }
                         CommonHelper.setDarkMode(this@HomeActivity, isDarkMode)
@@ -130,6 +142,14 @@ class HomeActivity : AppCompatActivity() {
         toastEvent.observe(this@HomeActivity) { message ->
             showShortToast(message)
         }
+
+        biometricStatus.observe(this@HomeActivity) { status ->
+            when(status) {
+                is BiometricStatus.Error -> {}
+                is BiometricStatus.Failed -> {}
+                is BiometricStatus.Success -> navigateToFavorite()
+            }
+        }
     }
 
     private fun initListener() = with(binding) {
@@ -140,8 +160,11 @@ class HomeActivity : AppCompatActivity() {
             viewModel.updateSearchQuery(text.toString())
         }
         btnFavorite.setOnClickListener {
-            val intent = Intent(this@HomeActivity, Class.forName("com.nalldev.favorites.FavoritesActivity"))
-            startActivity(intent)
+            if (viewModel.isBiometricAvailable) {
+                viewModel.authenticate(this@HomeActivity, ContextCompat.getMainExecutor(this@HomeActivity), biometricConfig)
+            } else {
+                navigateToFavorite()
+            }
         }
         binding.toggleTheme.setOnClickListener {
             if (viewModel.isDarkMode.value) {
@@ -158,6 +181,11 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun navigateToFavorite() {
+        val intent = Intent(this@HomeActivity, Class.forName("com.nalldev.favorites.FavoritesActivity"))
+        startActivity(intent)
     }
 
     override fun onStart() {

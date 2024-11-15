@@ -1,4 +1,4 @@
-package com.nalldev.core.domain.usecases
+package com.nalldev.core.domain.usecases.dark_mode
 
 import com.nalldev.core.domain.repositories.DarkModeRepository
 

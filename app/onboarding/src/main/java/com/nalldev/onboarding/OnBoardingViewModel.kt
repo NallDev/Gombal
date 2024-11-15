@@ -2,7 +2,7 @@ package com.nalldev.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nalldev.core.domain.usecases.OnBoardingUseCases
+import com.nalldev.core.domain.usecases.onboarding.OnBoardingUseCases
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
