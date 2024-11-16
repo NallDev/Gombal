@@ -15,6 +15,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "BASE_URL", "\"https://www.arbeitnow.com/api\"")
+        buildConfigField("String", "HOSTNAME", "\"arbeitnow.com\"")
     }
 
     compileOptions {
@@ -26,6 +29,10 @@ android {
     }
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

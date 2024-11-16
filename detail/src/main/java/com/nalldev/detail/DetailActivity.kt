@@ -20,9 +20,8 @@ import org.koin.core.context.loadKoinModules
 
 class DetailActivity : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityDetailBinding.inflate(layoutInflater)
-    }
+    private var _binding : ActivityDetailBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModel<DetailViewModel>()
 
@@ -30,6 +29,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupTransition()
         enableEdgeToEdge()
+        _binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -94,5 +94,10 @@ class DetailActivity : AppCompatActivity() {
         sharedElementExitTransition = AutoTransition()
         exitTransition = AutoTransition()
         enterTransition = AutoTransition()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

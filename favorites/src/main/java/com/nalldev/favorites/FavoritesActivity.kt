@@ -27,31 +27,33 @@ import org.koin.core.context.loadKoinModules
 
 class FavoritesActivity : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityFavoritesBinding.inflate(layoutInflater)
-    }
+    private var _binding: ActivityFavoritesBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModel<FavoritesViewModel>()
 
     private val favoritesAdapterListener by lazy {
         object : FavoritesAdapter.Listener {
             override fun onItemClicked(job: JobModel, view: ItemJobBinding) {
-                val uri = Uri.parse("gombal://detail")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                intent.putExtra(Constant.EXTRAS_DETAIL_KEY, job)
+                if (viewModel.canNavigate.value) {
+                    viewModel.setCanNavigate(false)
+                    val uri = Uri.parse("gombal://detail")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    intent.putExtra(Constant.EXTRAS_DETAIL_KEY, job)
 
-                view.tvTitle.transitionName = "title_${job.id}"
-                view.tvCompanyName.transitionName = "company_name_${job.id}"
-                view.tvLocation.transitionName = "location_${job.id}"
+                    view.tvTitle.transitionName = "title_${job.id}"
+                    view.tvCompanyName.transitionName = "company_name_${job.id}"
+                    view.tvLocation.transitionName = "location_${job.id}"
 
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this@FavoritesActivity,
-                    Pair(view.tvTitle, view.tvTitle.transitionName),
-                    Pair(view.tvCompanyName, view.tvCompanyName.transitionName),
-                    Pair(view.tvLocation, view.tvLocation.transitionName),
-                )
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this@FavoritesActivity,
+                        Pair(view.tvTitle, view.tvTitle.transitionName),
+                        Pair(view.tvCompanyName, view.tvCompanyName.transitionName),
+                        Pair(view.tvLocation, view.tvLocation.transitionName),
+                    )
 
-                startActivity(intent, options.toBundle())
+                    startActivity(intent, options.toBundle())
+                }
             }
 
             override fun onFavoriteClicked(job: JobModel) {
@@ -67,6 +69,7 @@ class FavoritesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        _binding = ActivityFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -106,4 +109,13 @@ class FavoritesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.setCanNavigate(true)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

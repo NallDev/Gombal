@@ -19,15 +19,15 @@ import org.koin.core.context.loadKoinModules
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityOnboardingBinding.inflate(layoutInflater)
-    }
+    private var _binding : ActivityOnboardingBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModel<OnBoardingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        _binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -111,5 +111,10 @@ class OnboardingActivity : AppCompatActivity() {
         btnNext.setOnClickListener {
             viewModel.nextPage()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

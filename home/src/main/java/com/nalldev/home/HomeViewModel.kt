@@ -47,6 +47,9 @@ class HomeViewModel(
 
     private val _uiState = MutableStateFlow<UIState<List<JobModel>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<JobModel>>> = _uiState.asStateFlow()
+    
+    private val _canNavigate = MutableStateFlow(false)
+    val canNavigate: StateFlow<Boolean> = _canNavigate.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
 
@@ -98,6 +101,10 @@ class HomeViewModel(
                 _toastEvent.postValue(message)
             }
             .launchIn(viewModelScope)
+    }
+
+    fun setCanNavigate(canNavigate: Boolean) {
+        _canNavigate.update { canNavigate }
     }
 
     fun updateSearchQuery(query: String) {

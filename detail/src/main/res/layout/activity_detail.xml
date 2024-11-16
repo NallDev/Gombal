@@ -21,27 +21,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
+        <ImageView
             android:id="@+id/btn_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
             android:clickable="true"
-            app:cardBackgroundColor="@color/colorBackground"
-            app:cardElevation="4dp"
+            android:background="@drawable/search_shape"
+            android:src="@drawable/ic_back"
+            android:padding="8dp"
+            android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/gray"
-            app:strokeWidth="1dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back" />
-
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:layout_width="wrap_content"
