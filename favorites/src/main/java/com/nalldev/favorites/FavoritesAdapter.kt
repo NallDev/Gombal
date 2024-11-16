@@ -23,7 +23,7 @@ class FavoritesAdapter (val listener : Listener? = null) : ListAdapter<JobModel,
             }
 
             binding.root.setOnClickListener {
-                listener?.onItemClicked(job, binding)
+                listener?.onItemClicked(job)
             }
         }
 
@@ -63,7 +63,7 @@ class FavoritesAdapter (val listener : Listener? = null) : ListAdapter<JobModel,
     }
 
     interface Listener {
-        fun onItemClicked(job : JobModel, view: ItemJobBinding)
+        fun onItemClicked(job : JobModel)
         fun onFavoriteClicked(job : JobModel)
     }
 

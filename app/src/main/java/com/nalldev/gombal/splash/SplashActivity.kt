@@ -52,7 +52,7 @@ class SplashActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
                     isDarkMode.collect { isDarkMode ->
-                        CommonHelper.setDarkMode(this@SplashActivity, isDarkMode)
+                        CommonHelper.setDarkMode(this@SplashActivity.applicationContext, isDarkMode)
                     }
                 }
 

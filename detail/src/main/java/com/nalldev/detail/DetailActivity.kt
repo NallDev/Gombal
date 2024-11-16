@@ -3,8 +3,6 @@ package com.nalldev.detail
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.view.Window
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -20,16 +18,14 @@ import org.koin.core.context.loadKoinModules
 
 class DetailActivity : AppCompatActivity() {
 
-    private var _binding : ActivityDetailBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding : ActivityDetailBinding
 
     private val viewModel by viewModel<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupTransition()
         enableEdgeToEdge()
-        _binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -56,10 +52,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initView(job : JobModel) = with(binding) {
-        binding.tvTitle.transitionName = "title_${job.id}"
-        binding.tvCompanyName.transitionName = "company_name_${job.id}"
-        binding.tvLocation.transitionName = "location_${job.id}"
-
         tvTitle.text = job.title
         tvCompanyName.text = job.companyName
         tvLocation.text = job.location
@@ -86,18 +78,5 @@ class DetailActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-    }
-
-    private fun setupTransition() = with(window) {
-        requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-        sharedElementEnterTransition = AutoTransition()
-        sharedElementExitTransition = AutoTransition()
-        exitTransition = AutoTransition()
-        enterTransition = AutoTransition()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }
